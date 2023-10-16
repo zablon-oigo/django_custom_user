@@ -1,0 +1,26 @@
+{%extends 'base.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<nav class="bg-slate-600 p-4 text-white ">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+        <a href="{% url 'home' %}" class="text-3xl font-semibold">Custom User</a>
+    <div class="space-x-6 flex items-center justify-between">
+        {% if request.user.is_authenticated %}
+          {% if user.profile %}
+        <a href="{% url 'profile' %}" class="">
+            <img src="{{user.profile.photo.url }}" class="rounded-full w-12 h-12 object-center object-cover">
+        </a>
+        {% endif %}
+        <a href="{% url 'logout' %}" class="bg-red-500 rounded-lg px-6 py-4 text-white text-xl">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="px-6 py-4 rounded-lg border border-solid border-green-500 text-xl">Login</a>
+        <a href="{% url 'register' %}" class="bg-green-500 rounded-lg text-white text-xl px-6 py-4">SignUp</a>
+        {% endif %}
+    </div>
+    </div>
+</nav>
+
+
+{% endblock %}

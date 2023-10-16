@@ -1,27 +1,36 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
-from .models import CustomUser
+from .models import CustomUser,Profile
 from django.contrib.auth import get_user_model
 
 User=get_user_model()
+
+INPUT_CLASSES='px-6 py-4 rounded-lg border border-gray-700 w-full'
 class LoginForm(forms.Form):
     email=forms.EmailField(widget=forms.EmailInput(attrs={
-        'placeholder':'enter valid email address'
+        'placeholder':'enter valid email address',
+        'class':INPUT_CLASSES
     }))
     password=forms.CharField(widget=forms.PasswordInput(attrs={
-        'placholder':'Enter password'
+        'placeholder':'Enter password',
+        'class':INPUT_CLASSES
     }))
 class CustomUserCreationForm(UserCreationForm):
-    password1=forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder':'Enter password'
+    password1=forms.CharField(label='Password',widget=forms.PasswordInput(attrs={
+        'placeholder':'Enter password',
+        'class':INPUT_CLASSES
     }))
-    password2=forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder':'Confirm password'
+    password2=forms.CharField(label='Repeat Password',widget=forms.PasswordInput(attrs={
+        'placeholder':'Confirm password',
+        'class':INPUT_CLASSES
     }))
-
+    email=forms.EmailField(label='Email',widget=forms.EmailInput(attrs={
+        'placheloder':'Email Address',
+        'class':INPUT_CLASSES
+    }))
     class Meta:
         model=CustomUser
-        fields=['username','email','password1','password2']
+        fields=['email','password1','password2']
 
     def clean_password(self):
         cd=self.cleaned_data
@@ -46,3 +55,16 @@ class CustomUserChangeForm(UserChangeForm):
         # This is done here, rather than on the field, because the  
         # field does not have access to the initial value 
             return self.initial['password1']
+        
+
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=['photo']
+        widgets={
+            
+            'photo':forms.ClearableFileInput(attrs={
+                'class':INPUT_CLASSES
+            })
+        }

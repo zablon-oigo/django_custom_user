@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+Welcome
+{% endblock %}
+{% block content %}
+<div class="max-w-4xl bg-gray-200 h-screen p-6 mx-auto">
+    <div class="max-w-md my-20 rounded-lg shadow-2xl mx-auto bg-white p-6">
+    <h2 class="text-3xl text-slate-600 font-light">Welcome {{user.email}}</h2>
+<hr class="border border-gray-600 mx-auto w-3/4">
+<p class="text-xl">Please click here to <span class="text-blue-500 underline"><a href="{% url 'login' %}">log in</a></span></p>
+</div>
+</div>
+{% endblock %}
